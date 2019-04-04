@@ -14,3 +14,17 @@ before_install:  #instructions to tell travis what to do before install
 
 script:
   - docker run psypriest/docker-react npm run test -- --coverage
+
+
+deploy:
+  provider: elasticbeanstalk #travis ci comes preconfigured with some providers, its gonna do a lot of stuff for us just by doing this
+  region: "us-east-1"
+  app: "docker"
+  env: "Docker-env"
+  bucket_name: "elasticbeanstalk-us-east-1-486418374402"
+  bucket_path: "docker"
+  on: 
+    branch: master
+  acess_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
