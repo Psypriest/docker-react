@@ -1,0 +1,20 @@
+version: '3'
+services: 
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000" # map 3000 from outside of the container to port 3000 into the container
+    volumes:
+      - /app/node_modules
+      - .:/app  # mapping the .(home folder) from outside the container to /app inside the container
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm","run","test"]
