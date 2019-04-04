@@ -1,0 +1,16 @@
+sudo: required # telling Travis we need superuser permission
+services:  # tells it about the services 
+  - docker
+
+before_install:  #instructions to tell travis what to do before install
+  - docker build -t psypriest/docker-react -f Dockerfile.dev .
+
+
+# The script section is supposed to contain all the  series of command
+# that are going to be ran when that test suite is being executed
+# Travis CI is going to be watching the output of each command and if any
+# command results in eanything other than a 0 travis is going to assume 
+# that the code is broken  
+
+script:
+  - docker run psypriest/docker-react npm run test -- --coverage
